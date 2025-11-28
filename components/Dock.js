@@ -2,10 +2,27 @@
 
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Home, FileText, Github, Linkedin, Mail, Twitter } from 'lucide-react';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import Link from 'next/link';
 
-const DockIcon = ({ icon: Icon, href, label, mouseX, isExternal }) => {
+// Custom hook for media query
+const useMediaQuery = (query) => {
+  const [matches, setMatches] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia(query);
+    if (media.matches !== matches) {
+      setMatches(media.matches);
+    }
+    const listener = () => setMatches(media.matches);
+    media.addListener(listener);
+    return () => media.removeListener(listener);
+  }, [matches, query]);
+
+  return matches;
+};
+
+const DockIcon = ({ icon: Icon, href, label, mouseX, isExternal, isMobile }) => {
   const ref = useRef(null);
 
   const distance = useTransform(mouseX, (val) => {
@@ -13,7 +30,11 @@ const DockIcon = ({ icon: Icon, href, label, mouseX, isExternal }) => {
     return val - bounds.x - bounds.width / 2;
   });
 
-  const widthSync = useTransform(distance, [-150, 0, 150], [48, 80, 48]);
+  const widthSync = useTransform(
+    distance, 
+    [-150, 0, 150], 
+    isMobile ? [36, 48, 36] : [48, 80, 48]
+  );
   const width = useSpring(widthSync, { mass: 0.1, stiffness: 150, damping: 12 });
 
   const IconWrapper = isExternal ? 'a' : Link;
@@ -25,7 +46,7 @@ const DockIcon = ({ icon: Icon, href, label, mouseX, isExternal }) => {
     <motion.div 
       ref={ref} 
       style={{ 
-        width,
+        width: isMobile ? '36px' : width,
         height: '100%',
         display: 'flex',
         alignItems: 'center',
@@ -49,8 +70,8 @@ const DockIcon = ({ icon: Icon, href, label, mouseX, isExternal }) => {
       >
         <Icon 
           style={{ 
-            width: '32px', 
-            height: '32px', 
+            width: isMobile ? '20px' : '32px', 
+            height: isMobile ? '20px' : '32px', 
             color: '#00FF41',
             strokeWidth: 1.5 
           }} 
@@ -62,6 +83,7 @@ const DockIcon = ({ icon: Icon, href, label, mouseX, isExternal }) => {
 
 export default function Dock() {
   const mouseX = useMotionValue(Infinity);
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   const dockItems = [
     { icon: Home, href: '#hero', label: 'Home', isExternal: false },
@@ -78,7 +100,7 @@ export default function Dock() {
       onMouseLeave={() => mouseX.set(Infinity)}
       style={{
         position: 'fixed',
-        bottom: '32px',
+        bottom: isMobile ? '16px' : '32px',
         left: '50%',
         transform: 'translateX(-50%)',
         zIndex: 50
@@ -88,9 +110,9 @@ export default function Dock() {
         style={{
           display: 'flex',
           alignItems: 'center',
-          height: '80px',
-          gap: '24px',
-          padding: '16px 24px',
+          height: isMobile ? '56px' : '80px',
+          gap: isMobile ? '12px' : '24px',
+          padding: isMobile ? '12px 16px' : '16px 24px',
           backgroundColor: '#050505',
           border: '1px solid #00FF41',
           boxShadow: '0 10px 30px rgba(0, 255, 65, 0.2)'
@@ -100,6 +122,7 @@ export default function Dock() {
           <DockIcon
             key={index}
             mouseX={mouseX}
+            isMobile={isMobile}
             {...item}
           />
         ))}
