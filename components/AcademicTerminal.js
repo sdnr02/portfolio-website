@@ -112,8 +112,8 @@ export default function AcademicTerminal() {
     <section
       id="education"
       style={{
-        minHeight: '100vh',
-        padding: isMobile ? '32px 16px 32px' : '48px 32px 48px',
+        minHeight: 'auto',
+        padding: isMobile ? '32px 16px 60px' : '48px 32px 100px',
         maxWidth: '1280px',
         margin: '0 auto',
       }}

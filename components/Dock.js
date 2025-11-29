@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { Home, FileText, Github, Linkedin, Mail, Twitter } from 'lucide-react';
+import { UserCircle, FileText, Github, Linkedin, Mail, Twitter } from 'lucide-react';
 import { useRef, useState, useEffect } from 'react';
 import Link from 'next/link';
 
@@ -86,12 +86,12 @@ export default function Dock() {
   const isMobile = useMediaQuery('(max-width: 768px)');
 
   const dockItems = [
-    { icon: Home, href: '#hero', label: 'Home', isExternal: false },
+    { icon: UserCircle, href: '/profile', label: 'IDENTITY', isExternal: false },
     { icon: FileText, href: '/blog', label: 'Blog', isExternal: false },
-    { icon: Github, href: 'https://github.com/siddharth', label: 'GitHub', isExternal: true },
-    { icon: Linkedin, href: 'https://linkedin.com/in/siddharth', label: 'LinkedIn', isExternal: true },
-    { icon: Mail, href: 'mailto:siddharth@example.com', label: 'Email', isExternal: true },
-    { icon: Twitter, href: 'https://twitter.com/siddharth', label: 'X', isExternal: true },
+    { icon: Github, href: 'https://github.com/sdnr02', label: 'GitHub', isExternal: true },
+    { icon: Linkedin, href: 'https://www.linkedin.com/in/siddharth-nair-63ba3a288/', label: 'LinkedIn', isExternal: true },
+    { icon: Mail, href: 'mailto:imsidnair@gmail.com', label: 'Email', isExternal: true },
+    { icon: Twitter, href: 'https://x.com/TheNeuralGrind', label: 'X', isExternal: true },
   ];
 
   return (

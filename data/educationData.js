@@ -95,7 +95,7 @@ export const educationData = {
   skills: {
     languages: {
       label: "AVAILABLE RUNTIMES",
-      items: ["Python (Proficient)", "JavaScript (Intermediate)", "Java", "C++"]
+      items: ["Python (Proficient)", "SQL (Proficient)", "JavaScript (Intermediate)", "Go (Beginner)"]
     },
     ai_ml: {
       label: "NEURAL ENGINES",

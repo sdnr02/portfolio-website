@@ -180,7 +180,7 @@ export default function SystemSkills() {
     <section
       id="skills"
       style={{
-        minHeight: '100vh',
+        minHeight: 'auto',
         padding: isMobile ? '16px 16px 80px' : '32px 32px 95px',
         maxWidth: '1280px',
         margin: '0 auto',
